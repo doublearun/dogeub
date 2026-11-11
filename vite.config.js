@@ -152,7 +152,12 @@ export default defineConfig(({ command }) => {
             return null;
           }
 
-          return remoteApps();
+          try {
+            return await remoteApps();
+          } catch (e) {
+            console.warn(`[remote-apps-json] remote fetch failed (${e?.message || e}); falling back to local src/data/apps.json`);
+            return null;
+          }
         },
       },
 
